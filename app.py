@@ -7,7 +7,7 @@ from data_visualizer import DataVisualizer
 from data_QA import DataQA
 
 def main():
-    st.title('Dataset Explorer')
+    st.title('Insights 📶')
 
     data_loader = DataLoader()
     data,uploaded_file = data_loader.load_data()

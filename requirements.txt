@@ -6,3 +6,4 @@ seaborn
 langchain-google-genai
 langchain-experimental
 python-dotenv
+tabulate

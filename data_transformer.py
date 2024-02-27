@@ -9,6 +9,6 @@ class DataTransformer:
         column_operation = st.sidebar.text_input('Column operation (e.g., age * 2)')
         if column_operation:
             column, operation = column_operation.split()
-            self.data[column] = self.data[column].apply(lambda x: eval(operation))
+            self.data[column] = self.data[column].apply(lambda x: eval(str(x) + operation))
             st.write(self.data)
         return self.data
