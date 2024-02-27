@@ -4,12 +4,13 @@ from data_analyzer import DataAnalyzer
 from data_filter import DataFilter
 from data_transformer import DataTransformer
 from data_visualizer import DataVisualizer
+from data_QA import DataQA
 
 def main():
     st.title('Dataset Explorer')
 
     data_loader = DataLoader()
-    data = data_loader.load_data()
+    data,uploaded_file = data_loader.load_data()
 
     data_analyzer = DataAnalyzer(data)
     data_analyzer.show_summary_statistics()
@@ -24,5 +25,7 @@ def main():
     data_visualizer = DataVisualizer(data)
     data_visualizer.visualize_data()
 
+    data_QA = DataQA(uploaded_file)
+    data_QA.ask_csv()
 if __name__ == "__main__":
     main()
