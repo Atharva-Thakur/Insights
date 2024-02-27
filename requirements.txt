@@ -3,3 +3,6 @@ pandas
 numpy
 matplotlib
 seaborn
+langchain-google-genai
+langchain-experimental
+python-dotenv
