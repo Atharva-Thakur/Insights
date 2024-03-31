@@ -31,3 +31,23 @@
    streamlit run app.py
    ```
 
+## Web app
+1. Main page
+   Data Exploration
+   -> Data Loader
+   -> DataQA (LLM with python interpreter/CSV agent)
+   -> Data Analyzer
+   -> Data Filter
+   -> Data Visualizer
+
+2. Data Transformation
+   -> handling null values
+   -> creating new columns
+   -> removing columns
+   -> Changing datatypes
+   -> give option to analyse the transformed dataset or save it.
+
+3. Natural language dataparty (Pure LLM)
+   -> Insights generation
+   -> Automating the data analysis/transformation
+   -> generating a report

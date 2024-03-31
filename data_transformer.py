@@ -12,3 +12,9 @@ class DataTransformer:
             self.data[column] = self.data[column].apply(lambda x: eval(str(x) + operation))
             st.write(self.data)
         return self.data
+
+        #transformed data is not retained
+        #null values handling
+        #2 options - to remove or to impute that is the question
+        #give option to analyse the transformed dataset or save it.
+
