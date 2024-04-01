@@ -5,7 +5,13 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - init: pip install -r requirements.txt
-    command: python app.py
+  - init: |
+      echo "Creating .env file..."
+      touch .env
+      echo "Please enter your API key:"
+      read API_KEY
+      echo "API_KEY=$API_KEY" >> .env
+      pip install -r requirements.txt
+    command: streamlit run app.py
 
 
