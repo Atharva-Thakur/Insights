@@ -11,6 +11,8 @@ class DataLoader:
             uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
             if uploaded_file is not None:
                 self.data = pd.read_csv(uploaded_file)
+                file_path = './data.csv'
+                self.data.to_csv(file_path, index=False)
         elif data_source == 'Input a URL':
             url = st.text_input('Enter the URL of a CSV file')
             if url:
