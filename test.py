@@ -9,41 +9,47 @@ load_dotenv()  # take environment variables from .env.
 os.environ['GEMINI_API_KEY'] = os.getenv("GOOGLE_API_KEY")
 
 file_path = './test_data.csv'
-data = pd.read_csv(file_path)
+df = pd.read_csv(file_path)
 
-string_data= data.to_string(index=False)
+string_data= df.to_string(index=False)
 
-data_info = '''Machine Predictive Maintenance Classification Dataset
-Since real predictive maintenance datasets are generally difficult to obtain and in particular difficult to publish, we present and provide a synthetic dataset that reflects real predictive maintenance encountered in the industry to the best of our knowledge.
-
-The dataset consists of 100 data points stored as rows with 14 features in columns
-
-UID: unique identifier ranging from 1 to 100
-productID: consisting of a letter L, M, or H for low (50% of all products), medium (30%), and high (20%) as product quality variants and a variant-specific serial number
-air temperature [K]: generated using a random walk process later normalized to a standard deviation of 2 K around 300 K
-process temperature [K]: generated using a random walk process normalized to a standard deviation of 1 K, added to the air temperature plus 10 K.
-rotational speed [rpm]: calculated from powepower of 2860 W, overlaid with a normally distributed noise
-torque [Nm]: torque values are normally distributed around 40 Nm with an Ïƒ = 10 Nm and no negative values.
-tool wear [min]: The quality variants H/M/L add 5/3/2 minutes of tool wear to the used tool in the process. and a
-'machine failure' label that indicates, whether the machine has failed in this particular data point for any of the following failure modes are true.'''
+# Get column names
+column_names = ", ".join(df.columns.tolist())
+    
+# Get data types
+data_types = ", ".join([f"{col}: {dtype}" for col, dtype in df.dtypes.items()])
+    
+# Get number of rows and columns
+num_rows, num_cols = df.shape
+    
+# Construct the dataset information string
+info_string = f"Dataset Information:\n"
+info_string += f"Columns: {column_names}\n"
+info_string += f"Data Types: {data_types}\n"
+info_string += f"Number of Rows: {num_rows}\n"
+info_string += f"Number of Columns: {num_cols}\n"
 
 # print(string_data)
-
+request = "I want find relation between Air Temperature and Target"
 message = f'''
 You are a data analyser agent working with a given dataset.
 Below is the info about the dataset -
 
 ========
-{data_info}
+{info_string}
 ========
 
 Your task -
-give me the percentage of no failures.
+write a proper prompt to tell another agent to generate code to fulfill the below request by the user.
+You have to give all the details about the columns involved and only the required info about the dataset needed to fulfil the request.
+failues are given as 0 and 1 in target column.
 
+Request : 
+=======
+{request}
+=======
 Do not infer any data based on previous training, strictly use only source text given below as input.
-========
-{string_data}
-========
+
 '''
 output = completion(
     model="gemini/gemini-pro", 

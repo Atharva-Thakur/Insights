@@ -8,13 +8,14 @@ from python_interpreter import PythonInterpreter, run_interpreter
 load_dotenv()  # take environment variables from .env.
 
 class DataCodeRun:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self):
+        pass
 
     def run_code(self):
         os.environ['GEMINI_API_KEY'] = os.getenv("GOOGLE_API_KEY")
 
-        message = "write code to plot visualizations for iris dataset"
+        message = '''generate the code to find the relation between 'Air temperature [K]' and 'Target' columns of the given dataset. The 'Target' column holds failure prediction values as 0 (no failure) and 1 (failure). the name of the dataset is test_data.csv .
+        '''
         output = completion(
             model="gemini/gemini-pro", 
             messages=[

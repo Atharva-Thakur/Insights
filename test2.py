@@ -10,8 +10,8 @@ load_dotenv()  # take environment variables from .env.
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 llm = GoogleGenerativeAI(model="gemini-pro", google_api_key=GOOGLE_API_KEY)
-csv_agent = create_csv_agent(llm,"data.csv", verbose=True)
-question = "number of row which have which have values greater than 0 in column Pregnancies"
+csv_agent = create_csv_agent(llm,"test_data.csv", verbose=True)
+question = "what is the relation between air temperature and target"
 if question:
     response = csv_agent.run(question)
     print(response)

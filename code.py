@@ -1,24 +1,16 @@
-import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
-from sklearn.datasets import load_iris
+import matplotlib.pyplot as plt
 
-# Load the iris dataset
-iris = load_iris()
+# Load the dataset
+df = pd.read_csv('test_data.csv')
 
-# Visualize the distribution of sepal length
-sns.histplot(iris['data'][:, 0])
-plt.xlabel('Sepal Length')
-plt.ylabel('Count')
-plt.title('Distribution of Sepal Length')
+# Check the correlation between 'Air temperature [K]' and 'Target'
+corr = df['Air temperature [K]'].corr(df['Target'])
+
+# Plot the scatter plot
+sns.scatterplot(x='Air temperature [K]', y='Target', data=df)
 plt.show()
 
-# Visualize the relationship between sepal length and sepal width
-sns.scatterplot(iris['data'][:, 0], iris['data'][:, 1])
-plt.xlabel('Sepal Length')
-plt.ylabel('Sepal Width')
-plt.title('Relationship between Sepal Length and Sepal Width')
-plt.show()
-
-# Visualize the relationship between sepal length, sepal width, and petal length
-sns.pairplot(iris['data'], hue=iris['target'])
-plt.show()
+# Print the correlation coefficient
+print('Correlation coefficient:', corr)
