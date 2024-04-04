@@ -20,4 +20,4 @@ class DataLoader:
                     self.data = pd.read_csv(url)
                 except:
                     st.error('Could not load data from the provided URL. Please make sure the URL is correct and points to a CSV file.')
-        return self.data,uploaded_file
+        return self.data

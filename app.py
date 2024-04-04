@@ -10,22 +10,22 @@ def main():
     st.title('Insights 📶')
 
     data_loader = DataLoader()
-    data,uploaded_file = data_loader.load_data()
+    data = data_loader.load_data()
 
-    data_analyzer = DataAnalyzer(data)
+    data_transformer = DataTransformer(data)
+    modified_data = data_transformer.perform_column_operation()
+
+    data_analyzer = DataAnalyzer(modified_data)
     data_analyzer.show_summary_statistics()
     data_analyzer.show_data_types()
 
-    data_filter = DataFilter(data)
+    data_filter = DataFilter(modified_data)
     data = data_filter.filter_rows()
 
-    data_transformer = DataTransformer(data)
-    data = data_transformer.perform_column_operation()
-
-    data_visualizer = DataVisualizer(data)
+    data_visualizer = DataVisualizer(modified_data)
     data_visualizer.visualize_data()
 
-    data_QA = DataQA(uploaded_file)
+    data_QA = DataQA(data)
     data_QA.ask_csv()
 if __name__ == "__main__":
     main()
