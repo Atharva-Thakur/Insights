@@ -18,26 +18,20 @@ def main():
     data_loader = DataLoader()
     data = data_loader.load_data()
 
-    if os.path.getsize("data.csv") != 0:
-        data_analyzer = DataAnalyzer(data)
-        data_analyzer.show_summary_statistics()
-        data_analyzer.show_data_types()
-        data_analyzer.show_null_value_statistics()
-        print("test2")
-        data_filter = DataFilter(data)
-        data = data_filter.filter_rows()
+    data_transformer = DataTransformer(data)
+    modified_data = data_transformer.perform_column_operation()
 
-        data_transformer = DataTransformer(data)
-        data = data_transformer.perform_column_operation()
-        data = data_transformer.remove_null()
-        data = data_transformer.impute_null()
-        data = data_transformer.remove_columns()
+    data_analyzer = DataAnalyzer(modified_data)
+    data_analyzer.show_summary_statistics()
+    data_analyzer.show_data_types()
 
-        data_visualizer = DataVisualizer(data)
-        data_visualizer.visualize_data()
+    data_filter = DataFilter(modified_data)
+    data = data_filter.filter_rows()
 
-        data_QA = DataQA(data)
-        data_QA.ask_csv()
+    data_visualizer = DataVisualizer(modified_data)
+    data_visualizer.visualize_data()
 
+    data_QA = DataQA(data)
+    data_QA.ask_csv()
 if __name__ == "__main__":
     main()
