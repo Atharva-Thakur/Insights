@@ -7,6 +7,7 @@ import seaborn as sns
 class DataVisualizer:
     def __init__(self, data):
         self.data = data
+        st.header("Data Visualizer")
 
     def visualize_data(self):
         plot_type = st.selectbox('Choose a type of plot', ['Histogram', 'Box Plot', 'Pie Chart', 'Scatter Plot', 'Heatmap'])
