@@ -8,7 +8,7 @@ __pycache__/
 *.so
 
 # data set
-./data.csv
+data.csv
 #Env variables
 .env
 # Distribution / packaging
