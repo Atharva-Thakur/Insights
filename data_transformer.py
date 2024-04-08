@@ -4,7 +4,7 @@ import pandas as pd
 class DataTransformer:
     def __init__(self, data):
         self.data = data
-        st.header("Data Transformation")
+        st.header("Data Cleaning")
 
     def perform_column_operation(self):
         column_operation = st.sidebar.text_input('Column operation (e.g., age * 2)')
@@ -41,10 +41,12 @@ class DataTransformer:
             st.toast("Columns removed")
         return self.data
 
-
+        # PROBLEMS RESOLVED
         #transformed data is not retained
         #null values handling
         #2 options - to remove or to impute that is the question
+
+        # PROBLEMS TO BE ADDRESSED
         #categorical to numerical
         #give option to analyse the transformed dataset or save it.
 
