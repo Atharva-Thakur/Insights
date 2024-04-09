@@ -13,13 +13,13 @@ import pandas as pd
 
 def main():
     st.title('Insights 📶')
+    data = pd.DataFrame()
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    if st.button('Load Data'):
+        data_loader = DataLoader()
+        data_loader.load_data(uploaded_file)
     
-    data_loader = DataLoader()
-    load = data_loader.load_data()
-    if load:
-        data = pd.read_csv('data.csv')
-
-    
+    data = pd.read_csv("data.csv")
 
     if os.path.getsize("data.csv") != 0:
         with st.sidebar:
