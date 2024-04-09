@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 class DataTransformer:
     def __init__(self, data):
@@ -22,16 +23,17 @@ class DataTransformer:
         return self.data
 
     def impute_null(self):
+        col = st.multiselect('Choose columns to impute nulls', self.data.select_dtypes(include=[np.number]).columns)
+        option = st.selectbox('Impute nulls with', ('mean', 'mode', '0'))
         if st.button('Impute Null'):
-            col = st.multiselect('Choose columns to impute nulls', self.data.select_dtypes(include=[np.number]).columns)
-            option = st.selectbox('Impute nulls with', ('mean', 'mode', '0'))
             if option == "mean":
-                self.data.fillna(df.mean())
+                self.data[col] = self.data[col].fillna(self.data[col].mean())
             elif option == "mode":
-                self.data.fillna(df.mode())
+                self.data[col] = self.data[col].fillna(self.data[col].mode().iloc[0])  # mode() returns a DataFrame, so we select the first row
             elif option == "0":
-                self.data.fillna("0")
-            st.toast("Null values filled")
+                self.data[col] = self.data[col].fillna(0)
+            st.success("Null values filled")
+            self.data.to_csv("data.csv", index=False)
         return self.data
 
     def remove_columns(self):

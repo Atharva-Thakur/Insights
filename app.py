@@ -8,15 +8,18 @@ from data_QA import DataQA
 import os
 from streamlit_option_menu import option_menu
 
-def main():
-    if os.path.exists("data.csv"):
-        os.remove("data.csv")
-    with open("data.csv", 'w'):
-        pass
-    st.title('Insights 📶')
 
+import pandas as pd
+
+def main():
+    st.title('Insights 📶')
+    
     data_loader = DataLoader()
-    data = data_loader.load_data()
+    load = data_loader.load_data()
+    if load:
+        data = pd.read_csv('data.csv')
+
+    
 
     if os.path.getsize("data.csv") != 0:
         with st.sidebar:
@@ -31,6 +34,7 @@ def main():
 
         # --- EDA ---
         if selected == "Exploratory Data Analysis":
+            data = pd.read_csv("data.csv")
             data_analyzer = DataAnalyzer(data)
             data_analyzer.show_eda()
             data_analyzer.show_null_value_statistics()
@@ -43,13 +47,18 @@ def main():
         # --- DATA CLEANING ---
         if selected == "Data Cleaning":
             data_transformer = DataTransformer(data)
-            data_analyzer = DataAnalyzer(data)
+            
             modified_data = data_transformer.perform_column_operation()
-            data_analyzer.show_null_value_statistics()
             modified_data = data_transformer.remove_null()
             modified_data = data_transformer.impute_null()
-            modified_data = data_transformer.remove_columns()
+            data = modified_data
+            data_analyzer = DataAnalyzer(data)
+            data_analyzer.show_null_value_statistics()
+            new_data_analyzer = DataAnalyzer(modified_data)
+            data_analyzer.show_null_value_statistics()
 
+            # modified_data = data_transformer.remove_columns()
+            
             # data_filter = DataFilter(modified_data)
             # data = data_filter.filter_rows()
 
