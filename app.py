@@ -18,9 +18,10 @@ def main():
     if st.button('Load Data'):
         data_loader = DataLoader()
         data_loader.load_data(uploaded_file)
-    
-    data = pd.read_csv("data.csv")
-
+    try:
+        data = pd.read_csv("data.csv")
+    except:
+        st.write("Please upload a csv file")
     if os.path.getsize("data.csv") != 0:
         with st.sidebar:
             selected = option_menu(
