@@ -44,23 +44,23 @@ class DataAnalyzer:
         null_stats_df.loc[len(null_stats_df)] = ['Total', total_null, (total_null / (total_rows * self.data.shape[1])) * 100]
         st.dataframe(null_stats_df, hide_index=True, use_container_width=True)
 
+    def count_plot(self, column_name):
+        st.write(column_name)
+        unique_values = self.data[column_name].nunique()
+        fig, ax = plt.subplots(figsize=(9, 5))
+        if unique_values <= 12:
+            sns.countplot(data=self.data, x=column_name, ax=ax)
+        else:
+            sns.histplot(data=self.data, x=column_name, bins=20, ax=ax)
+        st.pyplot(fig)
+
     def show_count_plots(self):
         st.subheader("Count Plots")
         sns.set(style="whitegrid")
-
-        for column_name in self.data.columns:
-            unique_values = self.data[column_name].nunique()
-
-            if unique_values <= 12:
-                fig, ax = plt.subplots(figsize=(10, 6))
-                sns.countplot(data=self.data, x=column_name, ax=ax)
-                ax.set_title(f'Count Plot of {column_name}')
-                ax.set_xticklabels(ax.get_xticklabels())
-                st.pyplot(fig)
-
-            else:
-                fig, ax = plt.subplots(figsize=(10, 6))
-                sns.histplot(data=self.data, x=column_name, bins=20, ax=ax)
-                ax.set_title(f'Histogram of {column_name}')
-                ax.set_xlabel(column_name)
-                st.pyplot(fig)
+        left, right = st.columns(2)
+        with left:
+            for i in range(0, len(self.data.columns), 2):
+                self.count_plot(self.data.columns[i])
+        with right:
+            for i in range(1, len(self.data.columns), 2):
+                self.count_plot(self.data.columns[i])
