@@ -8,3 +8,6 @@ langchain-experimental
 python-dotenv
 tabulate
 litellm
+streamlit_option_menu
+pytest
+
