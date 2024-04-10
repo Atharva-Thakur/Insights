@@ -9,6 +9,8 @@ __pycache__/
 
 # data set
 data.csv
+original_data.csv
+
 #Env variables
 .env
 # Distribution / packaging
