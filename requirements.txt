@@ -8,3 +8,5 @@ langchain-experimental
 python-dotenv
 tabulate
 streamlit_option_menu
+pytest
+
