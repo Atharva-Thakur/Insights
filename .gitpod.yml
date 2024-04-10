@@ -12,6 +12,7 @@ tasks:
       read API_KEY
       echo "GOOGLE_API_KEY=$API_KEY" >> .env
       pip install -r requirements.txt
+      touch data.csv
     command: streamlit run app.py
 
 
