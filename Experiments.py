@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import pandas as pd
 from python_interpreter import PythonInterpreter, run_interpreter
-
+from data_code_run import DataCodeRun
 
 load_dotenv()  # take environment variables from .env.
 os.environ['GEMINI_API_KEY'] = os.getenv("GOOGLE_API_KEY")
@@ -30,7 +30,7 @@ info_string += f"Number of Rows: {num_rows}\n"
 info_string += f"Number of Columns: {num_cols}\n"
 
 # print(string_data)
-request = "I want find relation between Air Temperature and Target"
+request = "total number of null values in all columns"
 message = f'''
 You are a data analyser agent working with a given dataset.
 Below is the info about the dataset -
@@ -42,7 +42,7 @@ Below is the info about the dataset -
 Your task -
 write a proper prompt to tell another agent to generate code to fulfill the below request by the user.
 You have to give all the details about the columns involved and only the required info about the dataset needed to fulfil the request.
-failues are given as 0 and 1 in target column.
+failues are given as 0 and 1 in target column. Also tell about the file location that is 'test_data.csv'.
 
 Request : 
 =======
@@ -60,3 +60,7 @@ output = completion(
 
 print(output.choices[0].message.content)
 
+message = output.choices[0].message.content
+runner = DataCodeRun()
+
+runner.run_code(message)

@@ -11,6 +11,8 @@ __pycache__/
 data.csv
 original_data.csv
 
+#code files
+code.py
 #Env variables
 .env
 # Distribution / packaging
