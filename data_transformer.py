@@ -6,6 +6,7 @@ class DataTransformer:
     def __init__(self, data):
         self.data = data
         st.header("Data Cleaning")
+        st.divider()
 
     def perform_column_operation(self):
         column_operation = st.sidebar.text_input('Column operation (e.g., age * 2)')
@@ -16,13 +17,15 @@ class DataTransformer:
         return self.data
 
     def remove_null(self):
+        st.header("Remove Null Values")
+        col = st.multiselect('Choose columns to remove nulls', self.data.columns)
         if st.button('Remove Null'):
-            col = st.multiselect('Choose columns to remove nulls', self.data.columns)
             self.data.dropna(subset=col, inplace=True)
-            st.toast("Null values removed")
+            st.success("Null values removed")
         return self.data
 
     def impute_null(self):
+        st.header("Impute Null Values")
         col = st.multiselect('Choose columns to impute nulls', self.data.select_dtypes(include=[np.number]).columns)
         option = st.selectbox('Impute nulls with', ('mean', 'mode', '0'))
         if st.button('Impute Null'):
@@ -37,10 +40,11 @@ class DataTransformer:
         return self.data
 
     def remove_columns(self):
+        st.header("Remove Columns")
+        col = st.multiselect('Choose columns to remove', self.data.columns)
         if st.button('Remove Columns'):
-            col = st.multiselect('Choose columns to remove', self.data.columns)
             self.data.drop(columns=col, inplace=True)
-            st.toast("Columns removed")
+            st.success("Columns removed")
         return self.data
 
         # PROBLEMS RESOLVED
