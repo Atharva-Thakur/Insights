@@ -9,58 +9,50 @@ class DataAnalyzer:
         st.header("Exploratory Data Analysis")
 
     def show_eda(self):
+        st.subheader("Summary")
         st.write("Number of rows:", self.data.shape[0])
         st.write("Number of columns:", self.data.shape[1])
-        columns_by_dtype = {}
-        for column_name, dtype in self.data.dtypes.items():
-            dtype_str = str(dtype)
-            if dtype_str not in columns_by_dtype:
-                columns_by_dtype[dtype_str] = [column_name]
-            else:
-                columns_by_dtype[dtype_str].append(column_name)
-        col_type_df = []
-        for dtype, columns in columns_by_dtype.items():
-            col_type_df.append([dtype, ', '.join(columns)])
-        df = pd.DataFrame(col_type_df, columns=["Data Type", "Column Names"])
-        st.subheader("Columns by Data Type")
-        st.dataframe(df, hide_index=True, use_container_width=True)
+        null_counts = self.data.isnull().sum()
+        total_null = null_counts.sum()
+        total_rows = self.data.shape[0]
+        null_percentages = (null_counts / total_rows) * 100
+        columns_stats = []
+        for column_name in self.data.columns:
+            dtype = self.data[column_name].dtype
+            null_count = null_counts[column_name]
+            null_percentage = null_percentages[column_name]
+            columns_stats.append({
+                'Column Name': column_name,
+                "Data type": dtype,
+                'Null Values': null_count,
+                'Percentage Null': null_percentage
+            })
+        null_stats_df = pd.DataFrame(columns_stats)
+        st.dataframe(null_stats_df, hide_index=True, use_container_width=True)
+        st.write("Total percentage of null values:", (total_null / (total_rows * self.data.shape[1])) * 100)
 
     def show_summary_statistics(self):
         if st.button('Show Summary Statistics'):
             st.write(self.data.describe())
             st.write(self.data.describe(include=object))
 
-    def show_null_value_statistics(self):
-        st.subheader("Null Value Statistics")
-        null_counts = self.data.isnull().sum()
-        total_null = null_counts.sum()
-        total_rows = self.data.shape[0]
-        null_percentages = (null_counts / total_rows) * 100
-        null_stats_df = pd.DataFrame({
-            'Column Name': null_counts.index,
-            'Null Values': null_counts.values,
-            'Percentage Null': null_percentages.values
-        })
-        null_stats_df.loc[len(null_stats_df)] = ['Total', total_null, (total_null / (total_rows * self.data.shape[1])) * 100]
-        st.dataframe(null_stats_df, hide_index=True, use_container_width=True)
+    def count_plot(self, column_name):
+        st.write(column_name)
+        unique_values = self.data[column_name].nunique()
+        fig, ax = plt.subplots(figsize=(9, 5))
+        if unique_values <= 12:
+            sns.countplot(data=self.data, x=column_name, ax=ax)
+        else:
+            sns.histplot(data=self.data, x=column_name, bins=20, ax=ax)
+        st.pyplot(fig)
 
     def show_count_plots(self):
         st.subheader("Count Plots")
         sns.set(style="whitegrid")
-
-        for column_name in self.data.columns:
-            unique_values = self.data[column_name].nunique()
-
-            if unique_values <= 12:
-                fig, ax = plt.subplots(figsize=(10, 6))
-                sns.countplot(data=self.data, x=column_name, ax=ax)
-                ax.set_title(f'Count Plot of {column_name}')
-                ax.set_xticklabels(ax.get_xticklabels())
-                st.pyplot(fig)
-
-            else:
-                fig, ax = plt.subplots(figsize=(10, 6))
-                sns.histplot(data=self.data, x=column_name, bins=20, ax=ax)
-                ax.set_title(f'Histogram of {column_name}')
-                ax.set_xlabel(column_name)
-                st.pyplot(fig)
+        left, right = st.columns(2)
+        with left:
+            for i in range(0, len(self.data.columns), 2):
+                self.count_plot(self.data.columns[i])
+        with right:
+            for i in range(1, len(self.data.columns), 2):
+                self.count_plot(self.data.columns[i])

@@ -8,7 +8,6 @@ from data_QA import DataQA
 import os
 from streamlit_option_menu import option_menu
 
-
 import pandas as pd
 
 def main():
@@ -22,6 +21,7 @@ def main():
         data = pd.read_csv("data.csv")
     except:
         st.write("Please upload a csv file")
+    
     if os.path.getsize("data.csv") != 0:
         with st.sidebar:
             selected = option_menu(
@@ -38,7 +38,6 @@ def main():
             data = pd.read_csv("data.csv")
             data_analyzer = DataAnalyzer(data)
             data_analyzer.show_eda()
-            data_analyzer.show_null_value_statistics()
             data_analyzer.show_count_plots()
             data_analyzer.show_summary_statistics()
 
@@ -49,14 +48,9 @@ def main():
         if selected == "Data Cleaning":
             data_transformer = DataTransformer(data)
             
-            modified_data = data_transformer.perform_column_operation()
-            modified_data = data_transformer.remove_null()
-            modified_data = data_transformer.impute_null()
-            data = modified_data
-            data_analyzer = DataAnalyzer(data)
-            data_analyzer.show_null_value_statistics()
-            new_data_analyzer = DataAnalyzer(modified_data)
-            data_analyzer.show_null_value_statistics()
+            # modified_data = data_transformer.perform_column_operation()
+            data = data_transformer.handle_null()
+            
 
             # modified_data = data_transformer.remove_columns()
             

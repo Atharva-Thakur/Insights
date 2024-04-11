@@ -13,5 +13,4 @@ class DataLoader:
                     data = pd.read_csv(uploaded_file)
                     data.to_csv('./original_data.csv', index=False)
                     data.to_csv('./data.csv',index=False)
-            print("data loader ran once")
         return True
