@@ -27,6 +27,7 @@ jobs:
     - name: Set up environment variables
       run: |
         echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> $GITHUB_ENV
+        touch data.csv
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
