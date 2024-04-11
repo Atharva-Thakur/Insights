@@ -51,3 +51,14 @@
    -> Insights generation
    -> Automating the data analysis/transformation
    -> generating a report
+
+
+# Running using Docker
+1. Build the docker image using 
+   ```
+   docker build -t insights .
+   ```
+2. Run the Docker container with
+   ```
+   docker run -p 8501:8501 -e GOOGLE_API_KEY=<you-api-key> insights
+   ```

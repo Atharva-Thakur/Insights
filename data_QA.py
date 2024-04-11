@@ -17,5 +17,5 @@ class DataQA:
         csv_agent = create_csv_agent(llm,"data.csv", verbose=True)
         question = st.text_input("Ask your question:")
         if question:
-            response = csv_agent.run(question)
+            response = csv_agent.invoke(question)
             st.write(response)
