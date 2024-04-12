@@ -1,10 +1,10 @@
 import streamlit as st
-from data_loader import DataLoader
-from data_analyzer import DataAnalyzer
-from data_filter import DataFilter
-from data_transformer import DataTransformer
-from data_visualizer import DataVisualizer
-from data_QA import DataQA
+from Modules.data_loader import DataLoader
+from Modules.data_analyzer import DataAnalyzer
+from Modules.data_filter import DataFilter
+from Modules.data_transformer import DataTransformer
+from Modules.data_visualizer import DataVisualizer
+from Modules.data_QA import DataQA
 import os
 from streamlit_option_menu import option_menu
 
@@ -19,10 +19,7 @@ def main():
         data_loader.load_data(uploaded_file)
     try:
         data = pd.read_csv("data.csv")
-    except:
-        st.write("Please upload a csv file")
     
-    if os.path.getsize("data.csv") != 0:
         with st.sidebar:
             selected = option_menu(
                 menu_title="Main Menu",
@@ -65,6 +62,9 @@ def main():
         # --- DATA PARTY ---
         if selected == "Data Party":
             st.write("To be continued... :)")
+    except:
+        st.write("Please upload a csv file")
+
 
 if __name__ == "__main__":
     main()
