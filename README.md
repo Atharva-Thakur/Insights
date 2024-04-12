@@ -1,5 +1,5 @@
 title: Insights
-emoji: 🔥
+emoji: 📈
 colorFrom: gray
 colorTo: yellow
 sdk: streamlit
