@@ -1,3 +1,13 @@
+---
+title: Insights
+emoji: 📈
+colorFrom: gray
+colorTo: yellow
+sdk: streamlit
+sdk_version: 1.33.0
+app_file: app.py
+pinned: false
+---
 # Insights
 
 ## Modules
