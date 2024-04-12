@@ -10,6 +10,9 @@ pinned: false
 ---
 # Insights
 
+## Deployment
+[HuggingFace](https://huggingface.co/spaces/AtharvaThakur/Insights)
+
 ## Modules
 
 - `DataLoader`: Handles the loading of data either by uploading a CSV file or inputting a URL to a CSV file.
