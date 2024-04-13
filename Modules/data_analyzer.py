@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from Modules.llm_summary import LLM_summary
 
 class DataAnalyzer:
     def __init__(self, data):
@@ -10,6 +11,8 @@ class DataAnalyzer:
 
     def show_eda(self):
         st.subheader("Summary")
+        summary = LLM_summary()
+        st.write(summary)
         st.write("Number of rows:", self.data.shape[0])
         st.write("Number of columns:", self.data.shape[1])
         null_counts = self.data.isnull().sum()
@@ -29,7 +32,7 @@ class DataAnalyzer:
             })
         null_stats_df = pd.DataFrame(columns_stats)
         st.dataframe(null_stats_df, hide_index=True, use_container_width=True)
-        st.write("Total percentage of null values:", (total_null / (total_rows * self.data.shape[1])) * 100)
+        st.write("Total percentage of null values:", round((total_null / (total_rows * self.data.shape[1])) * 100, 4), "%")
 
     def show_summary_statistics(self):
         if st.button('Show Summary Statistics'):
