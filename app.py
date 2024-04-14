@@ -36,7 +36,6 @@ def main():
             data_analyzer = DataAnalyzer(data)
             data_analyzer.show_eda()
             data_analyzer.show_count_plots()
-            data_analyzer.show_summary_statistics()
 
             data_visualizer = DataVisualizer(data)
             data_visualizer.visualize_data()
