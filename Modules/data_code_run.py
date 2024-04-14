@@ -2,7 +2,7 @@ import streamlit as st
 from litellm import completion
 from dotenv import load_dotenv
 import os
-from python_interpreter import PythonInterpreter, run_interpreter
+from Modules.python_interpreter import PythonInterpreter, run_interpreter
 
 
 load_dotenv()  # take environment variables from .env.
