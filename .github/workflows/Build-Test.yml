@@ -6,7 +6,7 @@ on:
       - '*'  # Trigger on any branch push
   pull_request:
     branches:
-      - 'main'
+      - '*'
 
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
       - name: Run Codacy Analysis CLI
         uses: codacy/codacy-analysis-cli-action@master
 
-  build:
+  Test:
 
     runs-on: ubuntu-latest
 
