@@ -41,9 +41,9 @@ class DataAnalyzer:
 
     def count_plot(self, column_name):
         st.write(column_name)
-        unique_values = self.data[column_name].nunique()
+        unique_values_ratio = self.data[column_name].nunique() / len(self.data)
         fig, ax = plt.subplots(figsize=(9, 5))
-        if unique_values <= 12:
+        if unique_values_ratio <= 0.3:
             sns.countplot(data=self.data, x=column_name, ax=ax)
         else:
             sns.histplot(data=self.data, x=column_name, bins=20, ax=ax)

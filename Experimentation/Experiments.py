@@ -1,60 +1,24 @@
-from litellm import completion
-from dotenv import load_dotenv
 import os
 import pandas as pd
-from python_interpreter import PythonInterpreter, run_interpreter
-from data_code_run import DataCodeRun
+import streamlit as st
+import numpy as np
 
-load_dotenv()  # take environment variables from .env.
-os.environ['GEMINI_API_KEY'] = os.getenv("GOOGLE_API_KEY")
+def categorical_to_numerical(data):
+    st.write(data.head())
+    st.subheader("Convert Categorical to Numerical")
+    columns_to_encode = st.multiselect('Choose columns to convert', data.select_dtypes(include=object).columns)
+    if st.button('Convert'):
+        for col in columns_to_encode:
+            one_hot_encoded = pd.get_dummies(data[col], prefix=col).astype(int)
+            data = pd.concat([data, one_hot_encoded], axis=1)
+            data.drop(col, axis=1, inplace=True)
+            # data = pd.DataFrame(one_hot_encoded)
+        st.success("Converted categoricals variables")
+        # data.to_csv("data.csv", index=False)
+        st.write(data.head())
+        st.write(data.describe())
+        return data
 
+data = pd.read_csv("data.csv")
+data = categorical_to_numerical(data)
 
-def LLM_summary():
-    file_path = './test_data.csv'
-    df = pd.read_csv(file_path)
-
-    string_data= df.to_string(index=False)
-
-    # Get column names
-    column_names = ", ".join(df.columns.tolist())
-        
-    # Get data types
-    data_types = ", ".join([f"{col}: {dtype}" for col, dtype in df.dtypes.items()])
-        
-    # Get number of rows and columns
-    num_rows, num_cols = df.shape
-        
-    # Construct the dataset information string
-    info_string = f"Dataset Information:\n"
-    info_string += f"Columns: {column_names}\n"
-    info_string += f"Data Types: {data_types}\n"
-    info_string += f"Number of Rows: {num_rows}\n"
-    info_string += f"Number of Columns: {num_cols}\n"
-
-    
-    
-    message = f'''
-    You are a data analyser agent working with a given dataset.
-    Below is the info about the dataset -
-    ========
-    {info_string}
-    ========
-
-    Your task -
-    Write a summary report of the dataset. You have to explain what the dataset is about and what kind of information could be gained from the dataset.
-    
-
-    Do not infer any data based on previous training, strictly use only source text given below as input.
-
-    '''
-    output = completion(
-        model="gemini/gemini-pro", 
-        messages=[
-                {"role": "user", "content": message}
-            ]
-    )
-
-    print(output.choices[0].message.content)
-
-    
-LLM_summary()

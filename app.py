@@ -46,10 +46,8 @@ def main():
             
             # modified_data = data_transformer.perform_column_operation()
             data = data_transformer.handle_null()
-            
-
-            # modified_data = data_transformer.remove_columns()
-            
+            data = data_transformer.categorical_to_numerical()
+            data = data_transformer.remove_columns()            
             # data_filter = DataFilter(modified_data)
             # data = data_filter.filter_rows()
 
@@ -61,9 +59,18 @@ def main():
         # --- DATA PARTY ---
         if selected == "Data Party":
             st.write("To be continued... :)")
+    
     except:
         st.write("Please upload a csv file")
 
 
 if __name__ == "__main__":
     main()
+
+
+# TO DO:
+# 1. automate categorical to numerical conversion
+# 2. toggle btn for data (original and modified)
+# 3. ask to save modified data before saving
+# 4. streamline prompts in llm_summary
+# 5. ml models
