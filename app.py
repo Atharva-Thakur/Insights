@@ -1,4 +1,12 @@
+#---IMPORTS---
 import streamlit as st
+import numpy as np
+import pandas as pd
+import os
+from streamlit_option_menu import option_menu
+
+
+#---MODULES IMPORT---
 from Modules.data_loader import DataLoader
 from Modules.data_analyzer import DataAnalyzer
 from Modules.data_filter import DataFilter
@@ -6,28 +14,11 @@ from Modules.data_transformer import DataTransformer
 from Modules.data_visualizer import DataVisualizer
 from Modules.data_QA import DataQA
 from Modules.MLtoolkit import MLToolkit
-from sklearn.metrics import mean_squared_error, accuracy_score, mean_absolute_error
-from sklearn.model_selection import train_test_split
-import os
-from streamlit_option_menu import option_menu
 
-#---IMPORT---
-import numpy as np
-import pandas as pd
-from sklearn import datasets
+
+#---SKLEARN-IMPORT---
 from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC, SVR
-from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.naive_bayes import GaussianNB
-from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.metrics import mean_squared_error, accuracy_score, mean_absolute_error
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
-import seaborn as sns
-import streamlit as st
-from sklearn.preprocessing import LabelEncoder
 
 def main():
     st.title('Insights 📶')

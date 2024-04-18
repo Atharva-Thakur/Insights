@@ -1,19 +1,14 @@
 import numpy as np
 import pandas as pd
-from sklearn import datasets
-from sklearn.model_selection import train_test_split
+
 from sklearn.svm import SVC, SVR
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LinearRegression, LogisticRegression
-from sklearn.metrics import mean_squared_error, accuracy_score, mean_absolute_error
-from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 import streamlit as st
-from sklearn.preprocessing import LabelEncoder
 
 
 class MLToolkit:
