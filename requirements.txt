@@ -9,5 +9,5 @@ python-dotenv
 tabulate
 litellm
 streamlit_option_menu
+scikit-learn
 pytest
-

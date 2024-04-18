@@ -76,36 +76,45 @@ def main():
             data_QA.ask_csv()
 
         if selected == "MLtoolkit":
-            ml_toolkit = MLToolkit(data)
-            algorithm, algorithm_type = ml_toolkit.select_algorithm()
-            X, Y = ml_toolkit.select_features_and_target()
+            try:
+                ml_toolkit = MLToolkit(data)
+                algorithm, algorithm_type = ml_toolkit.select_algorithm()
+                X, Y = ml_toolkit.select_features_and_target()
 
-            if (algorithm_type == "Regressor") and (algorithm == 'Decision Tree' or algorithm == 'Random Forest' or algorithm_type == "Linear Regression"):
-                params = ml_toolkit.add_parameter_regressor()
-            else:
-                params = ml_toolkit.add_parameter_classifier_general()
-                        
-            if algorithm_type == "Regressor":
-                algo_model = ml_toolkit.model_regressor(params)
-            else:
-                algo_model = ml_toolkit.model_classifier(params)
+                if (algorithm_type == "Regressor") and (algorithm == 'Decision Tree' or algorithm == 'Random Forest' or algorithm_type == "Linear Regression"):
+                    params = ml_toolkit.add_parameter_regressor()
+                else:
+                    params = ml_toolkit.add_parameter_classifier_general()
+                            
+                if algorithm_type == "Regressor":
+                    algo_model = ml_toolkit.model_regressor(params)
+                else:
+                    algo_model = ml_toolkit.model_classifier(params)
 
-            x_train, x_test, y_train, y_test = train_test_split(X, Y, train_size=0.8)
+                x_train, x_test, y_train, y_test = train_test_split(X, Y, train_size=0.8)
 
-            algo_model.fit(x_train, y_train)
+                algo_model.fit(x_train, y_train)
 
-            predict = algo_model.predict(x_test)
+                predict = algo_model.predict(x_test)
 
-            if algorithm != 'Linear Regression' and algorithm_type != 'Regressor':
-                st.write("Training Accuracy is:", algo_model.score(x_train, y_train) * 100)
-                st.write("Testing Accuracy is:", accuracy_score(y_test, predict) * 100)
-            else:
-                st.write("Mean Squared error is:", mean_squared_error(y_test, predict))
-                st.write("Mean Absolute error is:", mean_absolute_error(y_test, predict))
+                if algorithm != 'Linear Regression' and algorithm_type != 'Regressor':
+                    st.write("Training Accuracy is:", algo_model.score(x_train, y_train) * 100)
+                    st.write("Testing Accuracy is:", accuracy_score(y_test, predict) * 100)
+                else:
+                    st.write("Mean Squared error is:", mean_squared_error(y_test, predict))
+                    st.write("Mean Absolute error is:", mean_absolute_error(y_test, predict))
+
+            except ValueError as e:
+                st.write("ValueError occurred:\n Algorithm Type not suitable for dataset.")
+            except TypeError as e:
+                st.write("TypeError occurred:\n Please select features and target.")
+            except Exception as e:
+                st.write("An error occurred:", e)
+
 
         # --- DATA PARTY ---
         if selected == "Data Party":
-            st.write("To be continued... :)")
+            st.write("To be Added)")
     
     except:
         st.write("Please upload a csv file")
