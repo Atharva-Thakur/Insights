@@ -72,7 +72,7 @@ def main():
                 algorithm, algorithm_type = ml_toolkit.select_algorithm()
                 X, Y = ml_toolkit.select_features_and_target()
 
-                if (algorithm_type == "Regressor") and (algorithm == 'Decision Tree' or algorithm == 'Random Forest' or algorithm_type == "Linear Regression"):
+                if (algorithm_type == "Regressor") and (algorithm == 'Decision Tree' or algorithm == 'Random Forest' or algorithm == "Linear Regression"):
                     params = ml_toolkit.add_parameter_regressor()
                 else:
                     params = ml_toolkit.add_parameter_classifier_general()
@@ -96,9 +96,9 @@ def main():
                     st.write("Mean Absolute error is:", mean_absolute_error(y_test, predict))
 
             except ValueError as e:
-                st.write("ValueError occurred:\n Algorithm Type not suitable for dataset.")
+                st.write("Algorithm Type not suitable for dataset.")
             except TypeError as e:
-                st.write("TypeError occurred:\n Please select features and target.")
+                st.write("Please select features and target.")
             except Exception as e:
                 st.write("An error occurred:", e)
 

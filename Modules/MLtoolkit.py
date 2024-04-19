@@ -122,6 +122,20 @@ class MLToolkit:
                 params['random_state'] = int(random)
             except:
                 params['random_state'] = 4567
+        elif self.algorithm == 'Logistic Regression':
+
+            c_regular = st.slider('C (Regularization)', 0.01, 10.0)
+            params['C'] = c_regular
+            fit_intercept = st.selectbox("Fit Intercept", ('True', 'False'))
+            params['fit_intercept'] = bool(fit_intercept)
+            penalty = st.selectbox("Penalty", ('l1','l2','elasticnet', None))
+            params['penalty'] = penalty
+            solver = st.selectbox("Solver", ('newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'))
+            params['solver'] = solver
+            max_iter = st.slider('Maximum Iterations', 100, 1000)
+            params['max_iter'] = max_iter
+            n_jobs = st.selectbox("Number of Jobs", (None, -1))
+            params['n_jobs'] = n_jobs
 
         else:
 
@@ -129,7 +143,7 @@ class MLToolkit:
             params['C'] = c_regular
             fit_intercept = st.selectbox("Fit Intercept", ('True', 'False'))
             params['fit_intercept'] = bool(fit_intercept)
-            penalty = st.selectbox("Penalty", ('l2', None))
+            penalty = st.selectbox("Penalty", ('l1','l2','elasticnet', None))
             params['penalty'] = penalty
             n_jobs = st.selectbox("Number of Jobs", (None, -1))
             params['n_jobs'] = n_jobs
@@ -190,7 +204,11 @@ class MLToolkit:
             return LinearRegression(fit_intercept=params['fit_intercept'], n_jobs=params['n_jobs'])
         else:
             return LogisticRegression(fit_intercept=params['fit_intercept'],
-                                    penalty=params['penalty'], C=params['C'], n_jobs=params['n_jobs'])
+                          penalty=params['penalty'],
+                          C=params['C'],
+                          solver=params['solver'],
+                          max_iter=params['max_iter'],
+                          n_jobs=params['n_jobs'])
 
     def model_regressor(self, params):
         if self.algorithm == 'KNN':
