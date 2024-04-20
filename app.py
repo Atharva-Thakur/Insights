@@ -1,14 +1,24 @@
+#---IMPORTS---
 import streamlit as st
+import numpy as np
+import pandas as pd
+import os
+from streamlit_option_menu import option_menu
+
+
+#---MODULES IMPORT---
 from Modules.data_loader import DataLoader
 from Modules.data_analyzer import DataAnalyzer
 from Modules.data_filter import DataFilter
 from Modules.data_transformer import DataTransformer
 from Modules.data_visualizer import DataVisualizer
 from Modules.data_QA import DataQA
-import os
-from streamlit_option_menu import option_menu
+from Modules.MLtoolkit import MLToolkit
 
-import pandas as pd
+
+#---SKLEARN-IMPORT---
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, accuracy_score, mean_absolute_error
 
 def main():
     st.title('Insights 📶')
@@ -23,7 +33,7 @@ def main():
         with st.sidebar:
             selected = option_menu(
                 menu_title="Main Menu",
-                options=["Data Loader", "Exploratory Data Analysis", "Data Cleaning", "Q/A", "Data Party"])
+                options=["Data Loader", "Exploratory Data Analysis", "Data Cleaning", "Q/A", "MLtoolkit", "Data Party"])
 
         # --- DATA LOADER ---
         if selected == "Data Loader":
@@ -56,9 +66,46 @@ def main():
             data_QA = DataQA(data)
             data_QA.ask_csv()
 
+        if selected == "MLtoolkit":
+            try:
+                ml_toolkit = MLToolkit(data)
+                algorithm, algorithm_type = ml_toolkit.select_algorithm()
+                X, Y = ml_toolkit.select_features_and_target()
+
+                if (algorithm_type == "Regressor") and (algorithm == 'Decision Tree' or algorithm == 'Random Forest' or algorithm == "Linear Regression"):
+                    params = ml_toolkit.add_parameter_regressor()
+                else:
+                    params = ml_toolkit.add_parameter_classifier_general()
+                            
+                if algorithm_type == "Regressor":
+                    algo_model = ml_toolkit.model_regressor(params)
+                else:
+                    algo_model = ml_toolkit.model_classifier(params)
+
+                x_train, x_test, y_train, y_test = train_test_split(X, Y, train_size=0.8)
+
+                algo_model.fit(x_train, y_train)
+
+                predict = algo_model.predict(x_test)
+
+                if algorithm != 'Linear Regression' and algorithm_type != 'Regressor':
+                    st.write("Training Accuracy is:", algo_model.score(x_train, y_train) * 100)
+                    st.write("Testing Accuracy is:", accuracy_score(y_test, predict) * 100)
+                else:
+                    st.write("Mean Squared error is:", mean_squared_error(y_test, predict))
+                    st.write("Mean Absolute error is:", mean_absolute_error(y_test, predict))
+
+            except ValueError as e:
+                st.write("Algorithm Type not suitable for dataset.")
+            except TypeError as e:
+                st.write("Please select features and target.")
+            except Exception as e:
+                st.write("An error occurred:", e)
+
+
         # --- DATA PARTY ---
         if selected == "Data Party":
-            st.write("To be continued... :)")
+            st.write("To be Added)")
     
     except:
         st.write("Please upload a csv file")
