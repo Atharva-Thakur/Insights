@@ -80,6 +80,7 @@ class DataTransformer:
         if st.button('Remove Columns'):
             self.data.drop(columns=col, inplace=True)
             st.success("Columns removed")
+        self.data.to_csv("data.csv", index=False)
         return self.data
 
         # PROBLEMS RESOLVED

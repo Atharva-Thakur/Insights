@@ -96,11 +96,15 @@ def main():
                     st.write("Mean Absolute error is:", mean_absolute_error(y_test, predict))
 
             except ValueError as e:
-                st.write("Algorithm Type not suitable for dataset.")
+                error_message = str(e)
+                st.error("Value Error: "+error_message)
             except TypeError as e:
-                st.write("Please select features and target.")
+                error_message = str(e)
+                st.error("Type Error: "+error_message)
             except Exception as e:
-                st.write("An error occurred:", e)
+                error_message = str(e)
+                st.error(error_message)
+                # st.write("An error occurred:", e)
 
 
         # --- DATA PARTY ---
