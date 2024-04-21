@@ -50,15 +50,18 @@ class MLToolkit:
         # Display available columns based on the algorithm
         st.write("#### Available Columns:")
         
-        if self.algorithm in ["Linear Regression", "Logistic Regression"]:
+        #Choosing the X variables
+        if self.algorithm == "Linear Regression" or self.algorithm_type == "Regressor":
             numerical_columns = self.data.select_dtypes(include=[np.number]).columns
             selected_features = st.multiselect("Select Numerical Features (X)", numerical_columns)
         else:
             selected_features = st.multiselect("Select Features (X)", self.data.columns)
         
+
+        #Choosing the y variables
         if self.algorithm == "Naive Bayes":
             target_variable = st.selectbox("Select Target Variable (y)", self.data.columns)
-        elif self.algorithm == "Linear Regression":
+        elif self.algorithm == "Linear Regression" or (self.algorithm_type == "Regressor" and self.algorithm not in ["Linear Regression", "Logistic Regression"]):
             numerical_columns = self.data.select_dtypes(include=[np.number]).columns
             target_variable = st.selectbox("Select Target Variable (y)", numerical_columns)
         else:
