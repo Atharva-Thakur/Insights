@@ -51,11 +51,9 @@ class MLToolkit:
         st.write("#### Available Columns:")
         
         #Choosing the X variables
-        if self.algorithm == "Linear Regression" or self.algorithm_type == "Regressor":
-            numerical_columns = self.data.select_dtypes(include=[np.number]).columns
-            selected_features = st.multiselect("Select Numerical Features (X)", numerical_columns)
-        else:
-            selected_features = st.multiselect("Select Features (X)", self.data.columns)
+        
+        numerical_columns = self.data.select_dtypes(include=[np.number]).columns
+        selected_features = st.multiselect("Select Numerical Features (X)", numerical_columns)
         
 
         #Choosing the y variables
