@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 
-# sys.path.append("..")
+sys.path.append("..")
 
 import unittest
 import pandas as pd
