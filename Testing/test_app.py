@@ -1,4 +1,6 @@
 from streamlit.testing.v1 import AppTest
+import sys
+sys.path.append("..")
 
 def test_smoke():
     """Basic smoke test"""

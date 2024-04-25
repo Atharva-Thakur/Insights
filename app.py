@@ -52,6 +52,7 @@ def main():
 
         # --- DATA CLEANING ---
         if selected == "Data Cleaning":
+            st.header("Data Cleaning")
             data_transformer = DataTransformer(data)
             
             # modified_data = data_transformer.perform_column_operation()
