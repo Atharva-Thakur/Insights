@@ -33,7 +33,7 @@ def main():
         with st.sidebar:
             selected = option_menu(
                 menu_title="Main Menu",
-                options=["Data Loader", "Exploratory Data Analysis", "Data Cleaning", "Q/A", "MLtoolkit", "Data Party"])
+                options=["Data Loader", "Exploratory Data Analysis", "Data Cleaning", "Q/A", "MLtoolkit"])
 
         # --- DATA LOADER ---
         if selected == "Data Loader":
@@ -64,8 +64,13 @@ def main():
 
         # --- QUESTION AND ANSWER ---
         if selected == "Q/A":
-            data_QA = DataQA(data)
-            data_QA.ask_csv()
+            try:
+                data_QA = DataQA()
+                data_QA.ask_csv()
+            except Exception as e:
+                # Handle the exception (e.g., logging, printing an error message, etc.)
+                print(f"An error occurred: {e}")
+
 
         if selected == "MLtoolkit":
             try:
