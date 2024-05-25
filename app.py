@@ -48,7 +48,9 @@ def main():
             data_analyzer.show_count_plots()
 
             data_visualizer = DataVisualizer(data)
-            data_visualizer.visualize_data()
+            data_visualizer.suggestions()
+            data_visualizer.generate_viz()
+            # data_visualizer.visualize_data()
 
         # --- DATA CLEANING ---
         if selected == "Data Cleaning":
@@ -110,10 +112,11 @@ def main():
 
         # --- DATA PARTY ---
         if selected == "Data Party":
-            st.write("To be Added)")
+            st.write("To be Added:)")
     
-    except:
-        st.write("Please upload a csv file")
+    except Exception as e:
+        # st.write("Please upload a csv file")
+        print(e)
 
 
 if __name__ == "__main__":

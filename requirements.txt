@@ -11,3 +11,4 @@ litellm
 streamlit_option_menu
 scikit-learn
 pytest
+streamlit-modal
