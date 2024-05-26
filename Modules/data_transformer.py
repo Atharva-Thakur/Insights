@@ -91,6 +91,35 @@ class DataTransformer:
             self.data.to_csv("data.csv", index=False)
             st.success("Columns removed")
         return self.data
+    
+    # CORE FUNCS
+    def remove_columns_func(self,col):
+        self.data.drop(columns=col, inplace=True)
+        self.data.to_csv("data.csv", index=False)
+        return self.data
+    
+    def handle_null_remove(self,col):
+        self.data.dropna(subset=col, inplace=True)
+        print(self.data)
+        self.data.to_csv("data.csv", index=False)
+
+    def handle_null_impute(self,col,option):
+        if option == "mean":
+            self.data[col] = self.data[col].fillna(self.data[col].mean())
+        elif option == "mode":
+            self.data[col] = self.data[col].fillna(self.data[col].mode().iloc[0])
+        elif option == "0":
+            self.data[col] = self.data[col].fillna(0)
+        elif option == "-Select-":
+            raise ValueError("Select an option")
+        self.data.to_csv("data.csv", index=False)
+
+    def categorical_to_numerical_func(self,columns_to_encode):
+        for col in columns_to_encode:
+            one_hot_encoded = pd.get_dummies(self.data[col], prefix=col).astype(int)
+            self.data = pd.concat([self.data, one_hot_encoded], axis=1)
+            self.data.drop(col, axis=1, inplace=True)
+        self.data.to_csv("data.csv", index=False)
 
     # PROBLEMS RESOLVED
         #transformed data is not retained
