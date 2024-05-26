@@ -1,5 +1,6 @@
 .aider*
 # Byte-compiled / optimized / DLL files
+Modules/__pycache__/
 __pycache__/
 *.py[cod]
 *$py.class
