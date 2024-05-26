@@ -13,7 +13,8 @@ data.csv
 original_data.csv
 
 #code files
-./code.py
+code.py
+data.pdf
 
 #Env variables
 .env
