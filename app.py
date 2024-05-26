@@ -14,6 +14,7 @@ from Modules.data_transformer import DataTransformer
 from Modules.data_visualizer import DataVisualizer
 from Modules.data_QA import DataQA
 from Modules.MLtoolkit import MLToolkit
+from Modules.llm_summary import LLM_summary
 
 
 #---SKLEARN-IMPORT---
@@ -45,12 +46,14 @@ def main():
             data = pd.read_csv("data.csv")
             data_analyzer = DataAnalyzer(data)
             data_analyzer.show_eda()
+            LLM_summary()
+            
             data_analyzer.show_count_plots()
 
             data_visualizer = DataVisualizer(data)
             data_visualizer.suggestions()
-            data_visualizer.generate_viz()
-            # data_visualizer.visualize_data()
+            # data_visualizer.generate_viz()
+            data_visualizer.visualize_data()
 
         # --- DATA CLEANING ---
         if selected == "Data Cleaning":
@@ -68,7 +71,7 @@ def main():
         if selected == "Q/A":
             try:
                 data_QA = DataQA()
-                data_QA.ask_csv()
+                data_QA.answer_query()
             except Exception as e:
                 # Handle the exception (e.g., logging, printing an error message, etc.)
                 print(f"An error occurred: {e}")

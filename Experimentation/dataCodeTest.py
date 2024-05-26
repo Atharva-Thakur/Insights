@@ -4,19 +4,20 @@ import pandas as pd
 
 sys.path.append("..")
 
-from Modules.data_code_run import DataCodeRun
+from Modules.data_code_gen import DataCodeGen
+from Modules.python_interpreter import PythonInterpreter, run_interpreter
 
 # data = pd.read_csv("test_data.csv")
 
-code_runner = DataCodeRun()
+code_runner = DataCodeGen()
 
-message = '''generate the code to find the relation between 'Air temperature [K]' and 'Target' columns of the given dataset.
-The 'Target' column holds failure prediction values as 0 (no failure) and 1 (failure). the name of the dataset is test_data.csv .'''
+message = "give me a estimate of how many had a failure of any kind"
 
 response= code_runner.generate_code(message)
 # print("Response:", response)
 
 
-plan, python_code = code_runner.extract_code(response)
+python_code = code_runner.extract_code(response)
 
-print(python_code)
+interpreter_code_output = run_interpreter(python_code)
+print("Python code output:\n", interpreter_code_output)
