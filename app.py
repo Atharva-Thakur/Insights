@@ -46,7 +46,7 @@ def main():
             data = pd.read_csv("data.csv")
             data_analyzer = DataAnalyzer(data)
             data_analyzer.show_eda()
-            LLM_summary()
+            LLM_summary(data)
             
             data_analyzer.show_count_plots()
 
