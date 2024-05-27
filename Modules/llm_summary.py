@@ -8,7 +8,7 @@ load_dotenv()  # take environment variables from .env.
 os.environ['GEMINI_API_KEY'] = os.getenv("GOOGLE_API_KEY")
 
 @st.cache_data(experimental_allow_widgets=True)
-def LLM_summary():
+def LLM_summary(data):
     file_path = './data.csv'
     df = pd.read_csv(file_path)
 

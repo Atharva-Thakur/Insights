@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 from Modules.code_runner import run_script
 from Modules.code_debugger import code_debugger
-from Modules.output_interpreter import output_interpreter
+from Modules.output_interpreter import output_interpreter,display_pdf,create_combined_pdf
 from Modules.data_code_gen import DataCodeGen
 from Modules.python_interpreter import PythonInterpreter, run_interpreter
 import subprocess
@@ -91,7 +91,27 @@ class DataQA:
                 # Process final output
                 answer = output_interpreter(query)
                 st.write(answer)
+                display_pdf("file.pdf")
+                # Specify the file paths
+                text_file = "data.txt"
+                code_file = "code.py"
+                figure_file = "file.pdf"
+                output_file = "report.pdf"
 
+                # Create the combined PDF
+                create_combined_pdf(text_file, code_file, figure_file, output_file)
+
+                pdf_file_path = "report.pdf"
+
+                # Read the PDF file content
+                with open(pdf_file_path, "rb") as pdf_file:
+                    pdf_content = pdf_file.read()
+                st.download_button(
+                    label="Download Report PDF",
+                    data=pdf_content,
+                    file_name="report.pdf",
+                    mime="application/pdf"
+                )
                 # Clean up by removing the code file
                 os.remove("code.py")
 
