@@ -79,6 +79,7 @@ class DataTransformer:
                 one_hot_encoded = pd.get_dummies(self.data[col], prefix=col).astype(int)
                 self.data = pd.concat([self.data, one_hot_encoded], axis=1)
                 self.data.drop(col, axis=1, inplace=True)
+            self.data.to_csv("data.csv", index=False)
             st.success("Converted categoricals variables")
             st.write(self.data.head())
         return self.data

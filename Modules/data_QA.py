@@ -83,7 +83,7 @@ class DataQA:
                     response = debug_code(python_code, return_message)
                     python_code = code_gen.extract_code(response)
                     attempts += 1  # Increment the attempts counter
-                    st.write(python_code)  # Display the corrected code
+                    st.code(return_message)  # Display the corrected code
 
                 if attempts == max_attempts:
                     print("Exceeded maximum number of attempts. The code could not be executed successfully.")
@@ -91,11 +91,11 @@ class DataQA:
                 # Process final output
                 answer = output_interpreter(query)
                 st.write(answer)
-                display_pdf("file.pdf")
+                display_pdf("fig.pdf")
                 # Specify the file paths
                 text_file = "data.txt"
                 code_file = "code.py"
-                figure_file = "file.pdf"
+                figure_file = "fig.pdf"
                 output_file = "report.pdf"
 
                 # Create the combined PDF

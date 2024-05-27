@@ -48,10 +48,10 @@ def main():
             data_analyzer.show_eda()
             LLM_summary(data)
             
-            data_analyzer.show_count_plots()
+            data_analyzer.show_count_plots(data)
 
             data_visualizer = DataVisualizer(data)
-            data_visualizer.suggestions()
+            data_visualizer.suggestions(data)
             # data_visualizer.generate_viz()
             data_visualizer.visualize_data()
 
