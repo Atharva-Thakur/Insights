@@ -1,6 +1,7 @@
 from litellm import completion
 from dotenv import load_dotenv
 import os
+import pandas as pd
 
 load_dotenv()  # take environment variables from .env.
 
