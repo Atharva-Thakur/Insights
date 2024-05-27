@@ -16,7 +16,8 @@ original_data.csv
 code.py
 data.pdf
 data.txt
-file.pdf
+fig.pdf
+report.pdf
 #Env variables
 .env
 # Distribution / packaging

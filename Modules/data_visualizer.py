@@ -17,7 +17,7 @@ class DataVisualizer:
         st.subheader("Data Visualizer")
 
     @st.cache_data(experimental_allow_widgets=True)
-    def suggestions(_self):
+    def suggestions(_self,data):
         message = f'''
         You are a data analyst working with a given dataset. Below is the information about the dataset:
         ========

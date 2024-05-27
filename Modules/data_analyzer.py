@@ -53,13 +53,14 @@ class DataAnalyzer:
                 sns.histplot(data=self.data, x=column_name, bins=20, ax=ax)
             st.pyplot(fig)
 
-    def show_count_plots(self):
+    @st.cache_data(experimental_allow_widgets=True)
+    def show_count_plots(_self,data):
         st.subheader("Count Plots")
         sns.set(style="whitegrid")
         left, right = st.columns(2)
         with left:
-            for i in range(0, len(self.data.columns), 2):
-                self.count_plot(self.data.columns[i])
+            for i in range(0, len(_self.data.columns), 2):
+                _self.count_plot(_self.data.columns[i])
         with right:
-            for i in range(1, len(self.data.columns), 2):
-                self.count_plot(self.data.columns[i])
+            for i in range(1, len(_self.data.columns), 2):
+                _self.count_plot(_self.data.columns[i])

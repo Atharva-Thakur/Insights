@@ -48,7 +48,7 @@ def LLM_summary(data):
 
     Your task -
     Write a detailed and beautiful summary report of the dataset. You have to explain what the dataset is about.
-    You also have to questions that could be asked regarding the dataset so that we could gain some insights.
+    You also have to generate questions that could be asked regarding the dataset so that we could gain some insights.
     
 
     Do not infer any data based on previous training, strictly use only source text given below as input.
