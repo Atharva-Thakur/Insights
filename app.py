@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import os
 from streamlit_option_menu import option_menu
+import pickle
 
 
 #---MODULES IMPORT---
@@ -105,6 +106,11 @@ def main():
                 else:
                     st.write("Mean Squared error is:", mean_squared_error(y_test, predict))
                     st.write("Mean Absolute error is:", mean_absolute_error(y_test, predict))
+                
+                model_bytes = pickle.dumps(algo_model)
+                st.download_button(label="Download pickled model", 
+                                data=model_bytes, 
+                                file_name="model.pkl")
 
             except ValueError as e:
                 error_message = str(e)

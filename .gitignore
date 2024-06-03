@@ -18,6 +18,7 @@ data.pdf
 data.txt
 fig.pdf
 report.pdf
+model.pkl
 #Env variables
 .env
 # Distribution / packaging
