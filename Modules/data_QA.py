@@ -79,6 +79,8 @@ class DataQA:
                     
                     if return_code == 0:
                         print("Code executed successfully!")
+                        st.write("Final Code:")
+                        st.code(python_code)
                         break  # Exit the loop if the code runs without errors
                     
                     # If there was an error, debug the code
